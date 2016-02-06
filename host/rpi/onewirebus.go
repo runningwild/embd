@@ -15,7 +15,7 @@ import (
 type w1Bus struct {
 	l    byte
 	busMap     map[string]embd.W1Device
-	mu   sync.Mutex
+	Mu   sync.Mutex
 
 	initialized bool
 }
@@ -23,9 +23,8 @@ type w1Bus struct {
 type w1Device struct {
 	file *os.File
 	addr string
-	mu   sync.Mutex
-
 	initialized bool
+	bus w1Bus 
 }
 
 func NewW1Bus(l byte) embd.W1Bus {
@@ -68,8 +67,8 @@ func (d *w1Device) init() error {
 }
 
 func (d *w1Device) ReadByte() (byte, error) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
+	d.bus.Mu.Lock()
+	defer d.bus.Mu.Unlock()
 
 	if err := d.init(); err != nil {
 		return 0, err
@@ -86,8 +85,8 @@ func (d *w1Device) ReadByte() (byte, error) {
 }
 
 func (d *w1Device) WriteByte(value byte) error {
-	d.mu.Lock()
-	defer d.mu.Unlock()
+	d.bus.Mu.Lock()
+	defer d.bus.Mu.Unlock()
 
 	if err := d.init(); err != nil {
 		return err
@@ -103,8 +102,8 @@ func (d *w1Device) WriteByte(value byte) error {
 }
 
 func (d *w1Device) WriteBytes(value []byte) error {
-	d.mu.Lock()
-	defer d.mu.Unlock()
+	d.bus.Mu.Lock()
+	defer d.bus.Mu.Unlock()
 
 	if err := d.init(); err != nil {
 		return err
@@ -125,8 +124,8 @@ func (d *w1Device) WriteBytes(value []byte) error {
 }
 
 func (d *w1Device) ReadBytes(number int) (value []byte, err error) {
-	d.mu.Lock()
-	defer d.mu.Unlock()
+	d.bus.Mu.Lock()
+	defer d.bus.Mu.Unlock()
 
 	if err := d.init(); err != nil {
 		return nil, err
@@ -157,21 +156,21 @@ func (b *w1Bus) ListDevices() (devices []string, err error) {
 }
 
 func (b *w1Bus) Open(address string) (device embd.W1Device, err error) {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+	b.Mu.Lock()
+	defer b.Mu.Unlock()
 
 	if d, ok := b.busMap[address]; ok {
 		return d, nil
 	}
 
-	d := &w1Device{addr: address}
+	d := &w1Device{addr: address, bus: b}
 	b.busMap[address] = d
 	return d, nil
 }
 
 func (b *w1Bus) Close() error {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+	b.Mu.Lock()
+	defer b.Mu.Unlock()
 
 	for _, b := range b.busMap {
 		b.Close()
@@ -180,13 +179,13 @@ func (b *w1Bus) Close() error {
 	return nil
 }
 
-func (b *w1Device) Close() error {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+func (d *w1Device) Close() error {
+	d.bus.Mu.Lock()
+	defer d.bus.Mu.Unlock()
 
-	if !b.initialized {
+	if !d.initialized {
 		return nil
 	}
 
-	return b.file.Close()
+	return d.file.Close()
 }
