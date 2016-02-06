@@ -8,7 +8,7 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 const (

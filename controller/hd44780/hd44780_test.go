@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 const (

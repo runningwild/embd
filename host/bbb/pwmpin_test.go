@@ -3,7 +3,7 @@ package bbb
 import (
 	"testing"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 func TestPWMPinClose(t *testing.T) {
