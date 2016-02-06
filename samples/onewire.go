@@ -24,7 +24,7 @@ func main() {
 	}
 
 	for _, dev := range devs {
-		fmt.Println("OneWire device: %s", dev)
+		fmt.Printf("OneWire device: %s\n", dev)
 	}
 
 	w1d, err := w1.Open("28-011572120bff")

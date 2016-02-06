@@ -24,7 +24,7 @@ type w1Device struct {
 	file *os.File
 	addr string
 	initialized bool
-	bus w1Bus 
+	bus *w1Bus
 }
 
 func NewW1Bus(l byte) embd.W1Bus {
@@ -180,8 +180,6 @@ func (b *w1Bus) Close() error {
 }
 
 func (d *w1Device) Close() error {
-	d.bus.Mu.Lock()
-	defer d.bus.Mu.Unlock()
 
 	if !d.initialized {
 		return nil
