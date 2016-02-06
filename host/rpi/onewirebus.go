@@ -24,7 +24,7 @@ type w1Device struct {
 	file *os.File
 	addr string
 	initialized bool
-	bus w1Bus 
+	bus *w1Bus
 }
 
 func NewW1Bus(l byte) embd.W1Bus {
