@@ -6,6 +6,7 @@ import (
 	"flag"
 
 	"github.com/zlowred/embd"
+	"github.com/zlowred/embd/controller/pca9955b"
 	_ "github.com/zlowred/embd/host/all"
 	"fmt"
 )
