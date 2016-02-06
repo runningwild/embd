@@ -9,10 +9,10 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/kidoman/embd"
-	"github.com/kidoman/embd/controller/mcp4725"
+	"github.com/zlowred/embd"
+	"github.com/zlowred/embd/controller/mcp4725"
 
-	_ "github.com/kidoman/embd/host/all"
+	_ "github.com/zlowred/embd/host/all"
 )
 
 func main() {
