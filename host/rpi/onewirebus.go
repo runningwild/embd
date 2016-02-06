@@ -180,8 +180,6 @@ func (b *w1Bus) Close() error {
 }
 
 func (d *w1Device) Close() error {
-	d.bus.Mu.Lock()
-	defer d.bus.Mu.Unlock()
 
 	if !d.initialized {
 		return nil
