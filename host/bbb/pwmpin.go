@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/golang/glog"
-	"github.com/zlowred/embd"
-	"github.com/zlowred/embd/util"
+	"github.com/kidoman/embd"
+	"github.com/kidoman/embd/util"
 )
 
 const (

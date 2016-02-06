@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/zlowred/embd"
-	"github.com/zlowred/embd/sensor/lsm303"
+	"github.com/kidoman/embd"
+	"github.com/kidoman/embd/sensor/lsm303"
 
-	_ "github.com/zlowred/embd/host/all"
+	_ "github.com/kidoman/embd/host/all"
 )
 
 func main() {

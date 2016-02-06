@@ -5,13 +5,14 @@
 	GPIO (digital (rw))
 	I²C
 	LED
-	W1 - make sure that w1-gpio kernel module is loaded. If you wish to use it with sensors directly (e.g. DS18B20 etc) make sure to disable respective kernel modules (e.g. w1-therm) in /etc/modprobe.d/blacklist.conf.
+	W1 - make sure that w1-gpio kernel module is loaded. If you wish to use it with sensors directly (e.g. DS18B20 etc)
+		 make sure to disable respective kernel modules (e.g. w1-therm) in /etc/modprobe.d/blacklist.conf.
 */
 package rpi
 
 import (
-	"github.com/zlowred/embd"
-	"github.com/zlowred/embd/host/generic"
+	"github.com/kidoman/embd"
+	"github.com/kidoman/embd/host/generic"
 	"fmt"
 )
 

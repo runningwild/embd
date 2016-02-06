@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/golang/glog"
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 const (

@@ -18,8 +18,8 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/zlowred/embd"
-	_ "github.com/zlowred/embd/host/rpi"
+	"github.com/kidoman/embd"
+	_ "github.com/kidoman/embd/host/rpi"
 )
 
 func main() {
