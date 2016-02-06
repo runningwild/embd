@@ -13,7 +13,6 @@ package rpi
 import (
 	"github.com/kidoman/embd"
 	"github.com/kidoman/embd/host/generic"
-	"fmt"
 )
 
 var spiDeviceMinor = byte(0)
@@ -76,7 +75,6 @@ var ledMap = embd.LEDMap{
 }
 
 func init() {
-	fmt.Println("registering RPI")
 	embd.Register(embd.HostRPi, func(rev int) *embd.Descriptor {
 		// Refer to http://elinux.org/RPi_HardwareHistory#Board_Revision_History
 		// for details.
@@ -106,5 +104,4 @@ func init() {
 			},
 		}
 	})
-	fmt.Println("registered")
 }
