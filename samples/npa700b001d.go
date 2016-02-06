@@ -6,10 +6,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/zlowred/embd"
-	"github.com/zlowred/embd/sensor/npa700"
-
-	_ "github.com/zlowred/embd/host/all"
+	"github.com/kidoman/embd"
+	_ "github.com/kidoman/embd/host/all"
 )
 
 func main() {

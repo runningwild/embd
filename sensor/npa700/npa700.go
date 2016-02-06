@@ -3,7 +3,7 @@
 package npa700
 
 import (
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 	"sync"
 )
 
