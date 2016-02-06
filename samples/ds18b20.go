@@ -6,9 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/zlowred/embd"
-	"github.com/zlowred/embd/sensor/ds18b20"
-	_ "github.com/zlowred/embd/host/rpi"
+	"github.com/kidoman/embd"
+	_ "github.com/kidoman/embd/host/rpi"
 )
 
 func main() {

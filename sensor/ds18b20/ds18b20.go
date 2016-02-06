@@ -1,7 +1,7 @@
 // Support for the very popular DS18B20 1-WIre temperature sensor
 package ds18b20
 import (
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 	"errors"
 	"sync"
 )
