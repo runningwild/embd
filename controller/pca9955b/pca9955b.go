@@ -4,7 +4,7 @@ package pca9955b
 import (
 	"sync"
 
-	"github.com/kidoman/embd"
+	"github.com/zlowred/embd"
 )
 
 type AutoIncrementMode byte
