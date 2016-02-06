@@ -11,9 +11,9 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 
-	_ "github.com/zlowred/embd/host/bbb"
+	_ "github.com/kidoman/embd/host/bbb"
 )
 
 func main() {

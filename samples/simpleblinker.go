@@ -8,8 +8,8 @@ package main
 import (
 	"time"
 
-	"github.com/zlowred/embd"
-	_ "github.com/zlowred/embd/host/rpi" // This loads the RPi driver
+	"github.com/kidoman/embd"
+	_ "github.com/kidoman/embd/host/rpi" // This loads the RPi driver
 )
 
 func main() {

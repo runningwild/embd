@@ -3,7 +3,7 @@ package generic
 import (
 	"testing"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 func TestDigitalPinClose(t *testing.T) {

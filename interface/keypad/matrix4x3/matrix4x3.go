@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/zlowred/embd"
+	"github.com/kidoman/embd"
 )
 
 type Key int
