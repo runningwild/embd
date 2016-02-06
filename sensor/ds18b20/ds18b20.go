@@ -95,10 +95,13 @@ func (sensor *DS18B20) ReadTemperature() error {
 	switch cfg {
 	case 0x00:
 		sensor.Raw &^= 7
+		break
 	case 0x20:
 		sensor.Raw &^= 3
+		break
 	case 0x40:
 		sensor.Raw &^= 1
+		break
 	}
 
 	return nil
@@ -112,7 +115,7 @@ func (sensor *DS18B20) Fahrenheit() float32 {
 	return float32(sensor.Raw) * 0.1125 + 32.
 }
 
-func (sensor *DS18B20) SetResolution(resoultion DS18B20_Resolution) error {
+func (sensor *DS18B20) SetResolution(resolution DS18B20_Resolution) error {
 	sensor.mu.Lock()
 	defer sensor.mu.Unlock()
 
@@ -128,15 +131,19 @@ func (sensor *DS18B20) SetResolution(resoultion DS18B20_Resolution) error {
 	if err != nil {
 		return err
 	}
-	switch resoultion {
+	switch resolution {
 	case Resolution_9bit:
 		err = sensor.Device.WriteByte(0x1F)
+		break
 	case Resolution_10bit:
 		err = sensor.Device.WriteByte(0x3F)
+		break
 	case Resolution_11bit:
 		err = sensor.Device.WriteByte(0x5F)
+		break
 	case Resolution_12bit:
 		err = sensor.Device.WriteByte(0x7F)
+		break
 	}
 	if err != nil {
 		return err
