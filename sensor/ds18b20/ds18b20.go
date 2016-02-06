@@ -95,10 +95,13 @@ func (sensor *DS18B20) ReadTemperature() error {
 	switch cfg {
 	case 0x00:
 		sensor.Raw &^= 7
+		break
 	case 0x20:
 		sensor.Raw &^= 3
+		break
 	case 0x40:
 		sensor.Raw &^= 1
+		break
 	}
 
 	return nil
