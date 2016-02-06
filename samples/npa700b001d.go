@@ -20,7 +20,7 @@ func main() {
 
 	bus := embd.NewI2CBus(1)
 
-	sensor := npa700.New(bus)
+	sensor := npa700.New(bus, 0x28)
 
 	err := sensor.Read()
 	if err != nil {
