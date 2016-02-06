@@ -7,7 +7,7 @@
 
 	Use the LED driver to toggle LEDs on the BBB:
 
-		import "github.com/kidoman/embd"
+		import "github.com/zlowred/embd"
 		...
 		embd.InitLED()
 		defer embd.CloseLED()
@@ -18,7 +18,7 @@
 
 	Even shorter while prototyping:
 
-		import "github.com/kidoman/embd"
+		import "github.com/zlowred/embd"
 		...
 		embd.InitLED()
 		defer embd.CloseLED()
@@ -27,7 +27,7 @@
 
 	BBB + PWM:
 
-		import "github.com/kidoman/embd"
+		import "github.com/zlowred/embd"
 		...
 		embd.InitGPIO()
 		defer embd.CloseGPIO()
@@ -39,7 +39,7 @@
 
 	Control GPIO pins on the RaspberryPi / BeagleBone Black:
 
-		import "github.com/kidoman/embd"
+		import "github.com/zlowred/embd"
 		...
 		embd.InitGPIO()
 		defer embd.CloseGPIO()
@@ -49,7 +49,7 @@
 
 	Could also do:
 
-		import "github.com/kidoman/embd"
+		import "github.com/zlowred/embd"
 		...
 		embd.InitGPIO()
 		defer embd.CloseGPIO()
@@ -61,8 +61,8 @@
 
 	Or read data from the Bosch BMP085 barometric sensor:
 
-		import "github.com/kidoman/embd"
-		import "github.com/kidoman/embd/sensor/bmp085"
+		import "github.com/zlowred/embd"
+		import "github.com/zlowred/embd/sensor/bmp085"
 		...
 		bus := embd.NewI2CBus(1)
 		...
@@ -73,8 +73,8 @@
 
 	Even find out the heading from the LSM303 magnetometer:
 
-		import "github.com/kidoman/embd"
-		import "github.com/kidoman/embd/sensor/lsm303"
+		import "github.com/zlowred/embd"
+		import "github.com/zlowred/embd/sensor/lsm303"
 		...
 		bus := embd.NewI2CBus(1)
 		...
