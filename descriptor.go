@@ -15,6 +15,7 @@ type Descriptor struct {
 	I2CDriver  func() I2CDriver
 	LEDDriver  func() LEDDriver
 	SPIDriver  func() SPIDriver
+	W1Driver   func() W1Driver
 }
 
 // The Describer type is a Descriptor provider.
