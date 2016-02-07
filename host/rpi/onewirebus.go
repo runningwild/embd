@@ -3,13 +3,13 @@
 package rpi
 
 import (
-	"fmt"
 	"os"
 	"sync"
 
 	"github.com/golang/glog"
 	"github.com/kidoman/embd"
 	"io/ioutil"
+	"fmt"
 )
 
 type w1Bus struct {
@@ -28,7 +28,6 @@ type w1Device struct {
 }
 
 func NewW1Bus(l byte) embd.W1Bus {
-	fmt.Println("new w1 bus")
 	return &w1Bus{l: l, busMap: make(map[string]embd.W1Device)}
 }
 
