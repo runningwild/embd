@@ -13,22 +13,21 @@ import (
 )
 
 type w1Bus struct {
-	l    byte
-	busMap     map[string]embd.W1Device
-	Mu   sync.Mutex
+	l           byte
+	busMap      map[string]embd.W1Device
+	Mu          sync.Mutex
 
 	initialized bool
 }
 
 type w1Device struct {
-	file *os.File
-	addr string
+	file        *os.File
+	addr        string
 	initialized bool
-	bus *w1Bus
+	bus         *w1Bus
 }
 
 func NewW1Bus(l byte) embd.W1Bus {
-	fmt.Println("new w1 bus")
 	return &w1Bus{l: l, busMap: make(map[string]embd.W1Device)}
 }
 
@@ -38,7 +37,7 @@ func (b *w1Bus) init() error {
 	}
 
 	var err error
-	if  _, err = os.Stat("/sys/bus/w1"); os.IsNotExist(err) {
+	if _, err = os.Stat("/sys/bus/w1"); os.IsNotExist(err) {
 		return err
 	}
 
