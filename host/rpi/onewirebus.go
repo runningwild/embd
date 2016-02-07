@@ -176,6 +176,7 @@ func (b *w1Bus) Close() error {
 		b.Close()
 	}
 
+	b.busMap = make(map[string]embd.W1Device)
 	return nil
 }
 
