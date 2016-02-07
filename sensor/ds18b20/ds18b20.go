@@ -150,6 +150,10 @@ func (sensor *DS18B20) SetResolution(resolution DS18B20_Resolution) error {
 	if err != nil {
 		return err
 	}
+	err = sensor.Device.WriteByte(0x48)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
