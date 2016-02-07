@@ -14,18 +14,19 @@ type NPA700 struct {
 	RawTemperature int16
 	RawPressure int16
 	mu sync.Mutex
+	addr byte
 }
 
 // New returns a handle to a BMP180 sensor.
-func New(bus embd.I2CBus) *NPA700 {
-	return &NPA700{Bus: bus}
+func New(bus embd.I2CBus, addr byte) *NPA700 {
+	return &NPA700{Bus: bus, addr: addr}
 }
 
 func (sensor *NPA700) Read() error {
 	sensor.mu.Lock()
 	defer sensor.mu.Unlock()
 
-	data, err := sensor.Bus.ReadBytes(0x28, 4)
+	data, err := sensor.Bus.ReadBytes(sensor.addr, 4)
 
 	if err != nil {
 		return err
