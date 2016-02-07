@@ -65,7 +65,9 @@ func (sensor *DS18B20) ReadTemperature() error {
 		return err
 	}
 
-	for ret, err := sensor.Device.ReadByte(); ret == 0 && err != nil; {}
+	var ret byte
+
+	for ret, err = sensor.Device.ReadByte(); ret == 0 && err == nil; ret, err = sensor.Device.ReadByte() {}
 
 	if err != nil {
 		return err
