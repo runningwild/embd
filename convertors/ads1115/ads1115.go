@@ -2,7 +2,7 @@
 package ads1115
 
 import (
-	"github.com/kidoman/embd"
+	"github.com/zlowred/embd"
 	"time"
 	"errors"
 )
