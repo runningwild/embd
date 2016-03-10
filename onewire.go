@@ -2,6 +2,8 @@
 
 package embd
 
+import "log"
+
 // W1Bus interface is used to interact with the OneWire bus.
 type W1Bus interface {
 
@@ -65,6 +67,7 @@ func InitW1() error {
 
 // CloseW1 releases resources associated with the OneWire driver.
 func CloseW1() error {
+	log.Println("Closing w1 driver")
 	return w1DriverInstance.Close()
 }
 

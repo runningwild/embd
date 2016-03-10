@@ -10,6 +10,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/zlowred/embd"
 	"io/ioutil"
+	"log"
 )
 
 type w1Bus struct {
@@ -41,7 +42,7 @@ func (b *w1Bus) init() error {
 		return err
 	}
 
-	glog.V(2).Infof("onewire: bus %v initialized", b.l)
+	log.Printf("onewire: bus %v initialized\n", b.l)
 
 	b.initialized = true
 
@@ -58,7 +59,7 @@ func (d *w1Device) init() error {
 		return err
 	}
 
-	glog.V(2).Infof("onewire: device %s initialized", d.addr)
+	log.Printf("onewire: device %s initialized\n", d.addr)
 
 	d.initialized = true
 
@@ -162,12 +163,13 @@ func (b *w1Bus) Open(address string) (device embd.W1Device, err error) {
 		return d, nil
 	}
 
-	d := &w1Device{addr: address, bus: b, initialized: true}
+	d := &w1Device{addr: address, bus: b}
 	b.busMap[address] = d
 	return d, nil
 }
 
 func (b *w1Bus) Close() error {
+	log.Println("Closing w1 bus")
 	b.Mu.Lock()
 	defer b.Mu.Unlock()
 
@@ -180,8 +182,9 @@ func (b *w1Bus) Close() error {
 }
 
 func (d *w1Device) Close() error {
-
+	log.Printf("Closing w1 device [%v]\n", d.addr)
 	if !d.initialized {
+		log.Println("not initialized")
 		return nil
 	}
 
