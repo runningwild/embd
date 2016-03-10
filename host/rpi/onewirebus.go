@@ -7,7 +7,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/golang/glog"
 	"github.com/zlowred/embd"
 	"io/ioutil"
 	"log"
