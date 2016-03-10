@@ -162,7 +162,7 @@ func (b *w1Bus) Open(address string) (device embd.W1Device, err error) {
 		return d, nil
 	}
 
-	d := &w1Device{addr: address, bus: b}
+	d := &w1Device{addr: address, bus: b, initialized: true}
 	b.busMap[address] = d
 	return d, nil
 }
