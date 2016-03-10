@@ -4,6 +4,7 @@ import (
 	"github.com/zlowred/embd"
 	"errors"
 	"sync"
+	"time"
 )
 
 type DS18B20_Resolution int
@@ -64,27 +65,33 @@ func (sensor *DS18B20) ReadTemperature() error {
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 
 	var ret byte
 
-	for ret, err = sensor.Device.ReadByte(); ret == 0 && err == nil; ret, err = sensor.Device.ReadByte() {}
+	for ret, err = sensor.Device.ReadByte(); ret == 0 && err == nil; ret, err = sensor.Device.ReadByte() {
+		time.Sleep(time.Millisecond * 10)
+	}
 
 	if err != nil {
 		return err
 	}
 
+	time.Sleep(time.Millisecond * 10)
 	err = sensor.Device.WriteByte(0xBE)
 
 	if err != nil {
 		return err
 	}
 
+	time.Sleep(time.Millisecond * 10)
 	res, err := sensor.Device.ReadBytes(9)
 
 	if err != nil {
 		return err
 	}
 
+	time.Sleep(time.Millisecond * 10)
 	crc := ds18b20_crc(res[:8])
 
 	if crc != res[8] {
@@ -106,6 +113,7 @@ func (sensor *DS18B20) ReadTemperature() error {
 		break
 	}
 
+	time.Sleep(time.Millisecond * 10)
 	return nil
 }
 
@@ -125,14 +133,17 @@ func (sensor *DS18B20) SetResolution(resolution DS18B20_Resolution) error {
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 	err = sensor.Device.WriteByte(0x00)
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 	err = sensor.Device.WriteByte(0x00)
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 	switch resolution {
 	case Resolution_9bit:
 		err = sensor.Device.WriteByte(0x1F)
@@ -150,10 +161,12 @@ func (sensor *DS18B20) SetResolution(resolution DS18B20_Resolution) error {
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 	err = sensor.Device.WriteByte(0x48)
 	if err != nil {
 		return err
 	}
+	time.Sleep(time.Millisecond * 10)
 	return nil
 }
 
