@@ -88,7 +88,7 @@ func (sensor *DS18B20) ReadTemperature() error {
 	crc := ds18b20_crc(res[:8])
 
 	if crc != res[8] {
-		errors.New("CRC error")
+		return errors.New("CRC error")
 	}
 
 	sensor.Raw = int16(res[1]) * 256 + int16(res[0])

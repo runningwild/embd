@@ -3,12 +3,11 @@ package ads1115
 
 import (
 	"github.com/zlowred/embd"
-	"time"
-	"errors"
 )
 
 const (
-	defaultConfig uint16 = 0xC303
+	defaultConfig uint16 = 0x4203
+//	defaultConfig uint16 = 0xC303
 	conversionRegister byte = 0
 	configRegister byte = 1
 	loThreshRegister byte = 2
@@ -24,28 +23,30 @@ type ADS1115 struct {
 
 // New creates a representation of the ads1115 converter
 func New(bus embd.I2CBus, addr byte) *ADS1115 {
-	return &ADS1115{Bus: bus, Addr: addr}
+	dev := &ADS1115{Bus: bus, Addr: addr}
+	dev.Bus.WriteWordToReg(dev.Addr, configRegister, defaultConfig)
+	return dev
 }
 
 // AnalogValueAt returns the analog value at the given channel of the converter.
 func (d *ADS1115) Read() (res uint16, err error) {
-	if err := d.Bus.WriteWordToReg(d.Addr, configRegister, defaultConfig); err != nil {
-		return 0, nil
-	}
-
-	var ready bool = false
-
-	var timer int64 = time.Now().Unix()
-	for ;!ready; {
-		if res, err := d.Bus.ReadWordFromReg(d.Addr, configRegister); err != nil {
-			return 0, err
-		} else {
-			ready = (res & (1 << 15)) != 0
-		}
-		if time.Now().Unix() - timer > timeout {
-			return 0, errors.New("timeout waiting for ADS1115 to complete conversion")
-		}
-	}
+//	if err := d.Bus.WriteWordToReg(d.Addr, configRegister, defaultConfig); err != nil {
+//		return 0, nil
+//	}
+//
+//	var ready bool = false
+//
+//	var timer int64 = time.Now().Unix()
+//	for ;!ready; {
+//		if res, err := d.Bus.ReadWordFromReg(d.Addr, configRegister); err != nil {
+//			return 0, err
+//		} else {
+//			ready = (res & (1 << 15)) != 0
+//		}
+//		if time.Now().Unix() - timer > timeout {
+//			return 0, errors.New("timeout waiting for ADS1115 to complete conversion")
+//		}
+//	}
 
 	if res, err := d.Bus.ReadWordFromReg(d.Addr, conversionRegister); err != nil {
 		return 0, err
