@@ -48,15 +48,35 @@ func (b *w1Bus) init() error {
 	return nil
 }
 
+func (d *w1Device) File() *os.File {
+	return d.file
+}
+
+func (d *w1Device) OpenFile() error {
+	if err := d.init(); err != nil {
+		return 0, err
+	}
+	var err error
+	d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR|os.O_SYNC, os.ModeDevice|os.ModeExclusive)
+	return err
+}
+
+func (d *w1Device) CloseFile() {
+	if err := d.init(); err != nil {
+		return 0, err
+	}
+	d.file.Close()
+}
+
 func (d *w1Device) init() error {
 	if d.initialized {
 		return nil
 	}
-
 	var err error
-	if d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR, os.ModeExclusive); err != nil {
+	if d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR|os.O_SYNC, os.ModeDevice|os.ModeExclusive); err != nil {
 		return err
 	}
+	defer d.file.Close()
 
 	log.Printf("onewire: device %s initialized\n", d.addr)
 
@@ -184,8 +204,8 @@ func (d *w1Device) Close() error {
 	log.Printf("Closing w1 device [%v]\n", d.addr)
 	if !d.initialized {
 		log.Println("not initialized")
-		return nil
 	}
 
+	return nil
 	return d.file.Close()
 }

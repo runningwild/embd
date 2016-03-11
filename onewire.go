@@ -19,6 +19,12 @@ type W1Bus interface {
 
 // W1Device interface is user to interact with the OneWire device.
 type W1Device interface {
+	// Get file
+	File() *os.File
+	// Open file
+	OpenFile() err
+	// Close file
+	CloseFile() err
 	// ReadByte reads a byte from the device.
 	ReadByte() (value byte, err error)
 	// ReadByte number of bytes from the device.
