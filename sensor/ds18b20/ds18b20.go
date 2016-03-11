@@ -2,9 +2,11 @@
 package ds18b20
 
 import (
-	"github.com/zlowred/embd"
 	"errors"
 	"sync"
+	"fmt"
+
+	"github.com/zlowred/embd"
 )
 
 type DS18B20_Resolution int
@@ -79,9 +81,7 @@ func (sensor *DS18B20) wait() error {
 		}
 	}
 
-	if err != nil {
-		return err
-	}
+	return err
 }
 
 func (sensor *DS18B20) read() error {
@@ -100,7 +100,7 @@ func (sensor *DS18B20) read() error {
 	}
 
 	buf := make([]byte, 9)
-	n, err = file.Read(buf)
+	n, err = sensor.Device.File().Read(buf)
 
 	if err != nil {
 		return err

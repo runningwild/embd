@@ -65,7 +65,7 @@ func (d *w1Device) CloseFile() error {
 	if err := d.init(); err != nil {
 		return err
 	}
-	d.file.Close()
+	return d.file.Close()
 }
 
 func (d *w1Device) init() error {
