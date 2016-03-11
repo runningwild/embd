@@ -54,16 +54,16 @@ func (d *w1Device) File() *os.File {
 
 func (d *w1Device) OpenFile() error {
 	if err := d.init(); err != nil {
-		return 0, err
+		return err
 	}
 	var err error
 	d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR | os.O_SYNC, os.ModeDevice | os.ModeExclusive)
 	return err
 }
 
-func (d *w1Device) CloseFile() {
+func (d *w1Device) CloseFile() error {
 	if err := d.init(); err != nil {
-		return 0, err
+		return err
 	}
 	d.file.Close()
 }

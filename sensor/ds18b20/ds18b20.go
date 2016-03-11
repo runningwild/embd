@@ -5,7 +5,6 @@ import (
 	"github.com/zlowred/embd"
 	"errors"
 	"sync"
-	"time"
 )
 
 type DS18B20_Resolution int
@@ -59,14 +58,12 @@ func (sensor *DS18B20) measure() error {
 
 	err := sensor.Device.WriteByte(0x44)
 
-	if err != nil {
-		return err
-	}
-
+	return err
 }
 
 func (sensor *DS18B20) wait() error {
-	if err := sensor.Device.OpenFile(); err != nil {
+	err := sensor.Device.OpenFile()
+	if err != nil {
 		return err
 	}
 	defer sensor.Device.CloseFile()
@@ -88,7 +85,8 @@ func (sensor *DS18B20) wait() error {
 }
 
 func (sensor *DS18B20) read() error {
-	if err := sensor.Device.OpenFile(); err != nil {
+	err := sensor.Device.OpenFile()
+	if err != nil {
 		return err
 	}
 	defer sensor.Device.CloseFile()
