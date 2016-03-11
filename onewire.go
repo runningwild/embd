@@ -24,9 +24,9 @@ type W1Device interface {
 	// Get file
 	File() *os.File
 	// Open file
-	OpenFile() err
+	OpenFile() error
 	// Close file
-	CloseFile() err
+	CloseFile() error
 	// ReadByte reads a byte from the device.
 	ReadByte() (value byte, err error)
 	// ReadByte number of bytes from the device.

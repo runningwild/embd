@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"log"
+	"io/ioutil"
 
 	"github.com/zlowred/embd"
-	"io/ioutil"
-	"log"
 )
 
 type w1Bus struct {
@@ -57,7 +57,7 @@ func (d *w1Device) OpenFile() error {
 		return 0, err
 	}
 	var err error
-	d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR|os.O_SYNC, os.ModeDevice|os.ModeExclusive)
+	d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR | os.O_SYNC, os.ModeDevice | os.ModeExclusive)
 	return err
 }
 
@@ -73,7 +73,7 @@ func (d *w1Device) init() error {
 		return nil
 	}
 	var err error
-	if d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR|os.O_SYNC, os.ModeDevice|os.ModeExclusive); err != nil {
+	if d.file, err = os.OpenFile(fmt.Sprintf("/sys/bus/w1/devices/%s/rw", d.addr), os.O_RDWR | os.O_SYNC, os.ModeDevice | os.ModeExclusive); err != nil {
 		return err
 	}
 	defer d.file.Close()
