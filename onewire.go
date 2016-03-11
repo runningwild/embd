@@ -5,7 +5,6 @@ package embd
 import (
 	"log"
 	"os"
-	"error"
 )
 // W1Bus interface is used to interact with the OneWire bus.
 type W1Bus interface {
