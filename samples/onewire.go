@@ -4,8 +4,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"err"
 
 	"github.com/zlowred/embd"
 	_ "github.com/zlowred/embd/host/all"
