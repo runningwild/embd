@@ -61,8 +61,8 @@ var rev2Pins = embd.PinMap{
 var rev3Pins = append(append(embd.PinMap(nil), rev2Pins...), embd.PinMap{
 	&embd.PinDesc{ID: "P1_29", Aliases: []string{"5", "GPIO_5"}, Caps: embd.CapDigital, DigitalLogical: 5},
 	&embd.PinDesc{ID: "P1_31", Aliases: []string{"6", "GPIO_6"}, Caps: embd.CapDigital, DigitalLogical: 6},
-	&embd.PinDesc{ID: "P1_32", Aliases: []string{"12", "GPIO_12"}, Caps: embd.CapDigital, DigitalLogical: 12},
-	&embd.PinDesc{ID: "P1_33", Aliases: []string{"13", "GPIO_13"}, Caps: embd.CapDigital, DigitalLogical: 13},
+	&embd.PinDesc{ID: "P1_32", Aliases: []string{"12", "GPIO_12"}, Caps: embd.CapDigital | embd.CapPWM, DigitalLogical: 12},
+	&embd.PinDesc{ID: "P1_33", Aliases: []string{"13", "GPIO_13"}, Caps: embd.CapDigital | embd.CapPWM, DigitalLogical: 13},
 	&embd.PinDesc{ID: "P1_35", Aliases: []string{"19", "GPIO_19"}, Caps: embd.CapDigital, DigitalLogical: 19},
 	&embd.PinDesc{ID: "P1_36", Aliases: []string{"16", "GPIO_16"}, Caps: embd.CapDigital, DigitalLogical: 16},
 	&embd.PinDesc{ID: "P1_37", Aliases: []string{"26", "GPIO_26"}, Caps: embd.CapDigital, DigitalLogical: 26},
@@ -88,7 +88,7 @@ func init() {
 
 		return &embd.Descriptor{
 			GPIODriver: func() embd.GPIODriver {
-				return embd.NewGPIODriver(pins, generic.NewDigitalPin, nil, nil)
+				return embd.NewGPIODriver(pins, generic.NewDigitalPin, nil, newPWMPin)
 			},
 			I2CDriver: func() embd.I2CDriver {
 				return embd.NewI2CDriver(generic.NewI2CBus)
