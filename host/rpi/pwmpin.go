@@ -15,15 +15,12 @@ const (
 	// PWMDefaultPolarity represents the default polarity (Positve or 1) for pwm.
 	PWMDefaultPolarity = embd.Positive
 
-	// PWMDefaultDuty represents FILL THIS IN
-	PWMDefaultDuty = 0
+	PWMDefaultDuty = 500000000
 
-	// PWMDefaultPeriod FILL THIS IN
-	PWMDefaultPeriod = 500000
+	PWMDefaultPeriod = 1000000000
 
-	// PWMMaxPulseWidth FILL THIS IN
-	PWMMinPulseWidth = 1000000
-	PWMMaxPulseWidth = 1000000
+	PWMMinPulseWidth = 1090
+	PWMMaxPulseWidth = 1000000000
 )
 
 type pwmPin struct {
@@ -88,7 +85,7 @@ func (p *pwmPin) init() error {
 		{"polarity", &p.polarityf},
 	}
 	for _, pair := range pairings {
-		f, err := os.OpenFile(base+"enable", os.O_WRONLY, os.ModeExclusive)
+		f, err := os.OpenFile(base+pair.name, os.O_WRONLY, os.ModeExclusive)
 		if err != nil {
 			return fmt.Errorf("unable to open necessary pwm files: %v", err)
 		}
@@ -100,7 +97,7 @@ func (p *pwmPin) init() error {
 		}()
 	}
 
-	if err := p.reset(); err != nil {
+	if err := p.reset(true); err != nil {
 		return err
 	}
 	p.initialized = true
@@ -108,6 +105,7 @@ func (p *pwmPin) init() error {
 }
 
 func (p *pwmPin) SetPeriod(ns int) error {
+	ns /= 10
 	if err := p.init(); err != nil {
 		return err
 	}
@@ -128,6 +126,7 @@ func (p *pwmPin) SetPeriod(ns int) error {
 }
 
 func (p *pwmPin) SetDuty(ns int) error {
+	ns /= 10
 	if err := p.init(); err != nil {
 		return err
 	}
@@ -184,17 +183,21 @@ func (p *pwmPin) SetPolarity(pol embd.Polarity) error {
 	return nil
 }
 
-func (p *pwmPin) reset() error {
-	if _, err := p.polarityf.WriteString("normal"); err != nil {
+func (p *pwmPin) reset(enable bool) error {
+	if _, err := p.polarityf.WriteString("normal\n"); err != nil {
 		return err
 	}
-	if _, err := p.periodf.WriteString(fmt.Sprintf("%d", PWMDefaultPeriod)); err != nil {
+	if _, err := p.periodf.WriteString(fmt.Sprintf("%d\n", PWMDefaultPeriod/10)); err != nil {
 		return err
 	}
-	if _, err := p.dutyf.WriteString(fmt.Sprintf("%d", PWMDefaultDuty)); err != nil {
+	if _, err := p.dutyf.WriteString(fmt.Sprintf("%d\n", PWMDefaultDuty/10)); err != nil {
 		return err
 	}
-	if _, err := p.enablef.WriteString("1"); err != nil {
+	enableStr := "0\n"
+	if enable {
+		enableStr = "1\n"
+	}
+	if _, err := p.enablef.WriteString(enableStr); err != nil {
 		return err
 	}
 	return nil
@@ -208,7 +211,7 @@ func (p *pwmPin) Close() error {
 		return nil
 	}
 	p.initialized = false
-	if err := p.reset(); err != nil {
+	if err := p.reset(false); err != nil {
 		return err
 	}
 	return nil
